@@ -12,7 +12,7 @@ export class WeatherService {
   key:string = "a32bc57e73c040bfb6c133330242010"
 
   getWeather(city:string):Observable<any>{
-    return this._httpClient.get(`http://api.weatherapi.com/v1/forecast.json?key=${this.key}&q=${city}&days=3&aqi=no&alerts=no`)
+    return this._httpClient.get(`https://api.weatherapi.com/v1/forecast.json?key=${this.key}&q=${city}&days=3&aqi=no&alerts=no`)
   }
 
 }
