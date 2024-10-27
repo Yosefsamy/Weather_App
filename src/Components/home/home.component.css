@@ -1,0 +1,26 @@
+.notify{
+    position : absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: red;
+    right: 0.8px;
+}
+
+.specialColor{
+    color : #849AC2
+}
+
+button{
+    position: absolute;
+    top: -2px;
+    right:0;
+    bottom: -3px;
+}
+
+@media screen and (max-width:550px) {
+    .w-50{
+        width: 75% !important;
+    }
+    
+}

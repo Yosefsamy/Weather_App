@@ -1,0 +1,106 @@
+<section *ngIf="valid" class="my-5">
+    <div class="container">
+
+        <header class="d-flex justify-content-between align-items-center">
+            <div class="leftSide d-flex align-items-center gap-3">
+                <i class="fa-solid fa-location-dot"></i>
+                <p class="mb-0 fs-4">{{location.name}}</p>
+                <i class="fa-solid fa-sort-down mb-1"></i>
+            </div>
+
+            <div class="position-relative">
+                <i class="fa-regular fa-bell fs-4"></i>
+                <span class="notify"></span>
+            </div>
+            
+        </header>
+
+        <div class="w-50 mx-auto position-relative mt-4 mb-3">
+            <input type="text" name="city" class="form-control py-1" placeholder="Find Your Location" #cityInput>
+            <button (click)="GetCityWeather(cityInput.value)" class="btn btn-success fs-5 px-3 py-0">Find</button>
+        </div>
+
+        <div *ngIf="forecastDay[0]?.day" class="w-25 mx-auto text-center mt-5">
+            <img class="img-fluid" [src]="forecastDay[0].day.condition.icon" alt="weather_Condition">
+            <h5 class="h1 fw-bold">{{forecastDay[0].day.avgtemp_c}}&deg;</h5>
+            <p class="mb-0 fs-5">Precipitations</p>
+            <div class="d-flex justify-content-center align-items-center gap-2">
+                <p class="fs-5">Max. : {{forecastDay[0].day.maxtemp_c}}&deg;</p>
+                <p class="fs-5">Min. : {{forecastDay[0].day.mintemp_c}}&deg;</p>
+            </div>
+
+        </div>
+
+        <div *ngIf="forecastDay[0]?.day" class="w-50 mx-auto d-flex justify-content-around align-items-center gap-5 bg-blue px-3 py-2 rounded-5">
+            <div>
+                <i class="fa-solid fa-cloud-rain me-2"></i>
+                <span>{{forecastDay[0].day.daily_chance_of_rain}}%</span>
+            </div>
+
+            <div>
+                <i class="fa-solid fa-temperature-half me-2"></i>
+                <span>{{forecastDay[0].day.avghumidity}}%</span>
+            </div>
+
+            <div>
+                <i class="fa-solid fa-wind me-2"></i>
+                <span>{{forecastDay[0].day.maxwind_kph}} Km/h</span>
+            </div>
+
+        </div>
+
+        <div class="w-50 mx-auto bg-blue px-3 py-2 my-4 rounded-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="my-0">Today</h3>
+                <h4 class="my-0">{{month}}, {{day}}</h4>
+            </div>
+
+            <div class="row my-3">
+                <div *ngFor="let hour of Hours | slice:13:17" class="col-3 text-center">
+                    <div class="hour">
+                        <p class="mb-2 fs-5">{{hour.temp_c}}&deg;</p>
+                        <img class="img-fluid mb-2" [src]="hour.condition.icon" alt="weather_Condition">
+                        <p class="fs-5">{{hour.hours}}.00</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-50 mx-auto bg-blue px-3 py-2 my-4 rounded-4 my-2">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="my-0">Next Forecast</h3>
+                <i class="fa-solid fa-calendar-day fs-4"></i>
+            </div>
+
+            <div *ngFor="let forecast of forecastDay | slice:1:3" class="d-flex justify-content-between align-items-center px-3">
+                <h5>{{getDayName(forecast.date)}}</h5>
+                <img class="img-fluid" [src]="forecast.day.condition.icon" alt="weather_Condition">
+                <div>
+                    <span class="me-2">{{forecast.day.maxtemp_c}}&deg;</span>
+                    <span class="specialColor">{{forecast.day.mintemp_c}}&deg;</span>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+  
+    </div>
+</section>
+
+<section class="vh-75 text-center my-5 py-5" *ngIf="!valid">
+
+    <div>
+        <div class="w-50 mx-auto position-relative mt-4 mb-4">
+            <input type="text" name="city" class="form-control py-1" placeholder="Find Your Location" #cityInput>
+            <button (click)="GetCityWeather(cityInput.value)" class="btn btn-success fs-5 px-3 py-0">Find</button>
+        </div>
+    
+        <h1>No matching location found.</h1>
+    </div>
+
+
+</section>
